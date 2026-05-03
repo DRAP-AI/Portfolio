@@ -1,65 +1,98 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect } from "react";
+import Link from "next/link";
+
 
 export default function Home() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className={`relative min-h-screen text-zinc-300 font-sans overflow-hidden bg-black`}>
+      {/* Menu Button Container */}
+      <div className="fixed w-full top-6 left-0 z-50 px-4 md:px-10 lg:px-20">
+        <div className="max-w-[1280px] mx-auto">
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="block ml-auto border border-zinc-700/50 w-[132px] py-2 rounded-[3rem] text-center bg-black/80 backdrop-blur text-white font-black tracking-widest uppercase transition-colors hover:bg-zinc-800"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            {isMenuOpen ? "Close" : "Menu"}
+          </button>
         </div>
-      </main>
+      </div>
+
+      {/* Navigation Overlay */}
+      <nav
+        className={`fixed inset-0 min-h-screen w-full z-40 transition-transform duration-500 ease-[cubic-bezier(0.86,0,0.07,1)] ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        style={{
+          background: `radial-gradient(at 60% 31%, rgb(255, 131, 139) 0px, transparent 50%),
+            radial-gradient(at 48% 98%, rgba(0, 255, 166, 0.707) 0px, transparent 50%),
+            radial-gradient(at 84% 67%, rgb(255, 129, 125) 0px, transparent 50%),
+            radial-gradient(at 16% 47%, rgb(255, 90, 112) 0px, transparent 50%),
+            radial-gradient(at 73% 11%, rgb(115, 255, 225) 0px, transparent 50%),
+            radial-gradient(at 49% 37%, rgba(255, 249, 89, 0.695) 0px, transparent 50%),
+            radial-gradient(at 70% 21%, rgba(58, 255, 186, 0.715) 0px, transparent 50%)`,
+          backgroundColor: '#ff5e99'
+        }}
+      >
+        <ol className="absolute top-1/2 left-[15%] -translate-y-1/2 list-none space-y-6">
+          {["Home", "My Work", "See Blog", "My Skills", "Contact"].map((item, idx) => (
+            <li key={idx}>
+              <Link
+                href={`#${item.toLowerCase().replace(" ", "-")}`}
+                onClick={() => setIsMenuOpen(false)}
+                className="group relative inline-block text-[3rem] font-black text-white no-underline"
+              >
+                {item}
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-white scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      {/* Header Section */}
+      <header
+        className="relative min-h-[calc(100vh+85px)] flex items-center bg-fixed bg-cover bg-center bg-no-repeat pt-28 pb-10"
+        style={{
+          backgroundImage: `linear-gradient(#0000008b, #000000e6), url('/hero-bg.webp')`,
+        }}
+      >
+        <div className="w-full max-w-[1280px] mx-auto px-6 md:px-10 lg:px-20 relative z-10">
+          <div className="max-w-[745px]">
+            <h1 className="text-[2.145rem] sm:text-[2.845rem] md:text-[3.5rem] leading-[1.2] font-black text-white mb-4">
+              <span className="block">Hi, We are DRAP AI</span>
+              <span className="block">Creative Web Developers</span>
+            </h1>
+
+            <p className="text-lg md:text-[1.6rem] leading-[1.4] text-[#989898] mt-4 mb-10 font-light max-w-[745px]">
+              We are a team of creative web developers who build beautiful and user-friendly websites for local businesses, startups, organizations and many more.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6">
+              <Link
+                href="#contact"
+                className="px-[60px] py-[18px] text-center rounded-[0.5rem] bg-white text-black font-bold text-[1.35rem] transition-shadow hover:shadow-[#ffffff40_0_0_0_0.5rem]"
+              >
+                Lorem
+              </Link>
+              <Link
+                href="#work"
+                className="px-[60px] py-[18px] text-center rounded-[0.5rem] border border-[#c0c0c02f] text-white font-bold text-[1.35rem] transition-colors hover:border-white"
+              >
+                See my work
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
     </div>
   );
 }
