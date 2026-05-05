@@ -1,66 +1,15 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Link from "next/link";
-
+import MobileMenu from "@/components/MobileMenu";
+import Work from "@/components/Work.jsx";
 
 export default function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [theme, setTheme] = useState("dark");
-
-  useEffect(() => {
-    document.documentElement.classList.add("dark");
-  }, []);
-
   return (
-    <div className={`relative min-h-screen text-zinc-300 font-sans overflow-hidden bg-black`}>
-      {/* Menu Button Container */}
-      <div className="fixed w-full top-6 left-0 z-50 px-4 md:px-10 lg:px-20">
-        <div className="max-w-[1280px] mx-auto">
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="block ml-auto border border-zinc-700/50 w-[132px] py-2 rounded-[3rem] text-center bg-black/80 backdrop-blur text-white font-black tracking-widest uppercase transition-colors hover:bg-zinc-800"
-          >
-            {isMenuOpen ? "Close" : "Menu"}
-          </button>
-        </div>
-      </div>
-
-      {/* Navigation Overlay */}
-      <nav
-        className={`fixed inset-0 min-h-screen w-full z-40 transition-transform duration-500 ease-[cubic-bezier(0.86,0,0.07,1)] ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        style={{
-          background: `radial-gradient(at 60% 31%, rgb(255, 131, 139) 0px, transparent 50%),
-            radial-gradient(at 48% 98%, rgba(0, 255, 166, 0.707) 0px, transparent 50%),
-            radial-gradient(at 84% 67%, rgb(255, 129, 125) 0px, transparent 50%),
-            radial-gradient(at 16% 47%, rgb(255, 90, 112) 0px, transparent 50%),
-            radial-gradient(at 73% 11%, rgb(115, 255, 225) 0px, transparent 50%),
-            radial-gradient(at 49% 37%, rgba(255, 249, 89, 0.695) 0px, transparent 50%),
-            radial-gradient(at 70% 21%, rgba(58, 255, 186, 0.715) 0px, transparent 50%)`,
-          backgroundColor: '#ff5e99'
-        }}
-      >
-        <ol className="absolute top-1/2 left-[15%] -translate-y-1/2 list-none space-y-6">
-          {["Home", "My Work", "See Blog", "My Skills", "Contact"].map((item, idx) => (
-            <li key={idx}>
-              <Link
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
-                onClick={() => setIsMenuOpen(false)}
-                className="group relative inline-block text-[3rem] font-black text-white no-underline"
-              >
-                {item}
-                <span className="absolute -bottom-2 left-0 w-full h-1 bg-white scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </nav>
+    <div className={`relative min-h-screen text-zinc-300 font-sans overflow-hidden bg-transparent`}>
+      <MobileMenu />
 
       {/* Header Section */}
       <header
-        className="relative min-h-[calc(100vh+85px)] flex items-center bg-fixed bg-cover bg-center bg-no-repeat pt-28 pb-10"
+        className="min-h-[calc(100vh+85px)] flex items-center bg-fixed bg-cover bg-center pt-28 pb-10"
         style={{
           backgroundImage: `linear-gradient(#0000008b, #000000e6), url('/hero-bg.webp')`,
         }}
@@ -92,7 +41,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </header>
+      </header> 
+      
+      {/* Work Section */}
+      <Work id='work'/>
     </div>
   );
 }
