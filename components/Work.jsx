@@ -1,9 +1,36 @@
-import { works } from "@/data/constants"
+"use client";
+
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase";
+import { ref, get } from "firebase/database";
 import { GitCommit } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 const Work = ({ id }) => {
+  const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const projectsRef = ref(db, "projects");
+        const snapshot = await get(projectsRef);
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const firstProject = Object.values(data)[0];
+          setProject(firstProject);
+        }
+      } catch (err) {
+        console.error("Error fetching project:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, []);
+
   return (
     <section id={id} className="bg-fixed bg-cover bg-center"
         style={{
@@ -18,23 +45,31 @@ const Work = ({ id }) => {
           <h2 className="text-[3.4rem] text-center font-black text-white mb-3">Selected Works</h2>
           <h3 className="text-lg text-center text-zinc-300 mb-8">Here are some of our recent Client Works</h3>
 
-          <div className="flex justify-between">
-            <div>
-              <h2 className="text-[2.5rem] text-white font-bold">{works.title}</h2>
-              <p className="text-[1.5rem]">{works.description}</p>
-              <ul className="flex flex-col gap-1.5 text-2xl">
-                {works.technologies.map((tech) => (
-                  <li key={tech}>◉ {tech}</li>
-                ))}
-              </ul>
-              <Link href={works.liveUrl} target="_blank" rel="noopener noreferrer">
-                <span className="flex items-center gap-4 text-white mt-2.5 underline text-2xl font-bold">
-                  Explore this project <GitCommit/> 
-                </span>
-              </Link>
+          {loading ? (
+            <p className="text-center text-zinc-300">Loading...</p>
+          ) : project ? (
+            <div className="flex justify-between gap-10">
+              <div>
+                <h2 className="text-[2.5rem] text-white font-bold">{project.title}</h2>
+                <p className="text-[1.5rem] text-zinc-300">{project.description}</p>
+                <ul className="flex flex-col gap-1.5 text-2xl">
+                  {project.technologies?.map((tech) => (
+                    <li key={tech} className="text-zinc-300">◉ {tech}</li>
+                  ))}
+                </ul>
+                <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                  <span className="flex items-center gap-4 text-white mt-2.5 underline text-2xl font-bold">
+                    Explore this project <GitCommit/> 
+                  </span>
+                </Link>
+              </div>
+              {project.image && (
+                <img src={project.image} width={500} height={400} alt={project.title} className="rounded-3xl object-cover"/>
+              )}
             </div>
-            <Image src={'/hero-bg.webp'} width={500} height={100}  alt="poject" className="rounded-3xl"/>
-          </div>
+          ) : (
+            <p className="text-center text-zinc-300">No projects available</p>
+          )}
 
         </div>
         </div>
