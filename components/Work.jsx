@@ -57,11 +57,18 @@ const Work = ({ id }) => {
                     <li key={tech} className="text-zinc-300">◉ {tech}</li>
                   ))}
                 </ul>
-                <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                  <span className="flex items-center gap-4 text-white mt-2.5 underline text-2xl font-bold">
-                    Explore this project <GitCommit/> 
-                  </span>
-                </Link>
+                {project.liveUrl && (
+                  <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                    <span className="flex items-center gap-4 text-white mt-2.5 underline text-2xl font-bold">
+                      Explore this project
+                      {project.sourceUrl && (
+                        <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
+                          <Image src="/github.webp" alt="GitHub" width={40} height={40} className="hover:opacity-80 transition cursor-pointer" />
+                        </a>
+                      )}
+                    </span>
+                  </Link>
+                )}
               </div>
               {project.image && (
                 <img src={project.image} width={500} height={400} alt={project.title} className="rounded-3xl object-cover"/>
