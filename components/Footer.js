@@ -2,7 +2,7 @@
 
 import { Link } from "react-scroll";
 import { FaCode, FaLaptopCode, FaRocket } from "react-icons/fa";
-import { BsTerminal } from "react-icons/bs";
+import { FaMessage } from "react-icons/fa6";
 
 const Footer = () => {
   const footerLinks = [
@@ -32,8 +32,8 @@ const Footer = () => {
         <div className="md:flex justify-between items-start sm:hidden">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <BsTerminal className="text-green text-2xl" />
-              <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green to-cyan">
+              <FaMessage className="text-green text-xl" />
+              <h3 className="text-2xl font-black uppercase tracking-[0.18em] text-white">
                 DRAP AI
               </h3>
             </div>
@@ -74,8 +74,8 @@ const Footer = () => {
 
         <div className="md:hidden sm:flex flex-col items-center gap-6 text-center">
           <div className="flex items-center gap-3">
-            <BsTerminal className="text-green text-xl" />
-            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green to-cyan">
+            <FaMessage className="text-green text-xl" />
+            <h3 className="text-2xl font-black uppercase tracking-[0.16em] text-white">
               DRAP AI
             </h3>
           </div>
