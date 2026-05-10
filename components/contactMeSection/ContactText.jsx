@@ -1,0 +1,150 @@
+import { motion } from "framer-motion";
+import {
+  FaCode,
+  FaHandshake,
+  FaRocket,
+  FaLightbulb,
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+  FaEnvelope,
+} from "react-icons/fa";
+
+const socialLinks = [
+  { href: "https://github.com", icon: FaGithub, label: "GitHub", color: "hover:text-green" },
+  { href: "https://linkedin.com", icon: FaLinkedin, label: "LinkedIn", color: "hover:text-cyan" },
+  { href: "https://instagram.com", icon: FaInstagram, label: "Instagram", color: "hover:text-pink-500" },
+  { href: "mailto:your.email@example.com", icon: FaEnvelope, label: "Email", color: "hover:text-amber-500" },
+];
+
+const ContactText = () => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative z-10"
+    >
+      <div className="flex items-center gap-4 mb-6">
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] }}
+          transition={{ duration: 3, repeat: Infinity }}
+          className="text-green text-3xl"
+        >
+          <FaHandshake />
+        </motion.div>
+        <div>
+          <h2 className="text-4xl font-bold">
+            <span className="text-green">Let&apos;s</span>{" "}
+            <span className="text-cyan">Connect</span>
+          </h2>
+          <p className="text-gray-400 text-sm mt-1 font-mono">&lt;ready-to-collaborate/&gt;</p>
+        </div>
+      </div>
+
+      <motion.div
+        initial={{ width: 0 }}
+        whileInView={{ width: "6rem" }}
+        transition={{ duration: 1, delay: 0.3 }}
+        className="h-1 bg-gradient-to-r from-green to-cyan rounded-full mb-8"
+      />
+
+      <div className="space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <p className="text-gray-300 text-lg leading-relaxed mb-4">
+            Ready to turn your <span className="text-green font-semibold">ideas into reality</span>?
+            I&apos;d love to hear about your project and discuss how we can work together to create something
+            <span className="text-cyan font-semibold"> extraordinary</span>.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="bg-gradient-to-r from-black/30 to-gray-900/30 rounded-xl p-6 border border-green/20 backdrop-blur-sm"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <FaCode className="text-cyan text-lg" />
+            <span className="text-gray-300 font-semibold">What I can help with:</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { icon: FaRocket, text: "React Development", color: "text-green" },
+              { icon: FaLightbulb, text: "Web Applications", color: "text-cyan" },
+              { icon: FaCode, text: "UI/UX Implementation", color: "text-green" },
+              { icon: FaRocket, text: "Performance Optimization", color: "text-cyan" },
+            ].map((service, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.05, x: 5 }}
+                className="flex items-center gap-3 p-2 rounded-lg hover:bg-black/20 transition-all duration-300"
+              >
+                <service.icon className={`${service.color} text-sm`} />
+                <span className="text-gray-300 text-sm">{service.text}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="bg-green/5 border border-green/20 rounded-lg p-4"
+        >
+          <p className="text-gray-300 text-sm leading-relaxed">
+            <span className="text-green font-semibold">Quick response guaranteed!</span>
+            <br />
+            I typically reply within 24 hours. Let&apos;s discuss your next big project!
+          </p>
+        </motion.div>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="w-full mt-16 pt-0.01"
+      >
+        <div className="text-center mb-6">
+          <h3 className="text-3xl font-bold text-gray-300 mb-3">Connect With Me</h3>
+          <div className="w-20 h-1 bg-gradient-to-r from-green to-cyan mx-auto rounded-full"></div>
+        </div>
+
+        <div className="flex justify-center gap-6">
+          {socialLinks.map((social, index) => (
+            <motion.a
+              key={index}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className={`flex items-center justify-center w-14 h-14 bg-gray-800/50 backdrop-blur-sm border border-gray-600/50 rounded-xl text-gray-400 ${social.color} transition-all duration-300 hover:border-green/50 hover:shadow-lg hover:shadow-green/20 group`}
+              title={social.label}
+            >
+              <social.icon className="text-2xl group-hover:scale-110 transition-transform duration-300" />
+
+              <div className="absolute inset-0 bg-gradient-to-r from-green/10 to-cyan/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </motion.a>
+          ))}
+        </div>
+      </motion.div>
+
+      <div className="absolute -top-4 -right-4 text-green/10 font-mono text-xs pointer-events-none">
+        &lt;/contact&gt;
+      </div>
+      <div className="absolute -bottom-2 -left-2 text-cyan/10 font-mono text-xs pointer-events-none">
+        &lt;form&gt;
+      </div>
+    </motion.div>
+  );
+};
+
+export default ContactText;

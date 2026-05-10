@@ -57,17 +57,35 @@ const Work = ({ id }) => {
                     <li key={tech} className="text-zinc-300">◉ {tech}</li>
                   ))}
                 </ul>
-                {project.liveUrl && (
-                  <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                    <span className="flex items-center gap-4 text-white mt-2.5 underline text-2xl font-bold">
-                      Explore this project
-                      {project.sourceUrl && (
-                        <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>
-                          <Image src="/github.webp" alt="GitHub" width={40} height={40} className="hover:opacity-80 transition cursor-pointer" />
-                        </a>
-                      )}
-                    </span>
-                  </Link>
+                {(project.liveUrl || project.sourceUrl) && (
+                  <div className="flex items-center gap-4 text-white mt-2.5">
+                    {project.liveUrl && (
+                      <Link
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline text-2xl font-bold"
+                      >
+                        Explore this project
+                      </Link>
+                    )}
+                    {project.sourceUrl && (
+                      <Link
+                        href={project.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex"
+                      >
+                        <Image
+                          src="/github.webp"
+                          alt="GitHub"
+                          width={40}
+                          height={40}
+                          className="hover:opacity-80 transition cursor-pointer"
+                        />
+                      </Link>
+                    )}
+                  </div>
                 )}
               </div>
               {project.image && (

@@ -1,29 +1,128 @@
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-import Link from "next/link";
+"use client";
+
+import { Link } from "react-scroll";
+import { FaCode, FaLaptopCode, FaRocket } from "react-icons/fa";
+import { BsTerminal } from "react-icons/bs";
 
 const Footer = () => {
+  const footerLinks = [
+    {
+      name: "Work",
+      section: "work",
+    },
+    {
+      name: "Skills",
+      section: "skills",
+    },
+    {
+      name: "Contact",
+      section: "contact",
+    },
+  ];
+
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-gray-900 text-white py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <h3 className="text-2xl font-bold">DRAP AI</h3>
-            <p className="text-gray-400">Creative Web Developers</p>
+    <footer className="relative px-4 mb-8 mt-24">
+      <div className="relative w-full h-[1px] bg-gradient-to-r from-transparent via-green to-transparent mb-12">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan to-transparent animate-pulse"></div>
+      </div>
+
+      <div className="max-w-[1200px] mx-auto">
+        <div className="md:flex justify-between items-start sm:hidden">
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <BsTerminal className="text-green text-2xl" />
+              <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green to-cyan">
+                DRAP AI
+              </h3>
+            </div>
+            <p className="text-white/60 font-mono text-sm max-w-md">
+              Creative Web Developers building modern, user-friendly web experiences
+            </p>
+
+            <div className="flex gap-4 mt-2">
+              <FaCode className="text-green/60 hover:text-green transition-colors duration-300 cursor-pointer" />
+              <FaLaptopCode className="text-cyan/60 hover:text-cyan transition-colors duration-300 cursor-pointer" />
+              <FaRocket className="text-yellow/60 hover:text-yellow transition-colors duration-300 cursor-pointer" />
+            </div>
           </div>
-          <div className="flex space-x-6">
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-              <FaGithub size={24} />
-            </Link>
-            <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-              <FaLinkedin size={24} />
-            </Link>
-            <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-              <FaTwitter size={24} />
-            </Link>
+
+          <div className="flex flex-col gap-4">
+            <h4 className="text-white/80 font-semibold uppercase tracking-wider text-sm">
+              Quick Navigation
+            </h4>
+            <ul className="flex flex-col gap-3 text-white/70">
+              {footerLinks.map((item, index) => (
+                <li key={index} className="group">
+                  <Link
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    offset={-120}
+                    to={item.section}
+                    className="hover:text-green transition-all duration-300 cursor-pointer flex items-center gap-2 text-sm uppercase tracking-wide"
+                  >
+                    <span className="w-0 h-[1px] bg-green group-hover:w-4 transition-all duration-300"></span>
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-700 pt-4 text-center text-gray-500">
-          <p>&copy; {new Date().getFullYear()} DRAP AI. All rights reserved.</p>
+
+        <div className="md:hidden sm:flex flex-col items-center gap-6 text-center">
+          <div className="flex items-center gap-3">
+            <BsTerminal className="text-green text-xl" />
+            <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green to-cyan">
+              DRAP AI
+            </h3>
+          </div>
+
+          <div className="flex gap-6 text-white/70">
+            {footerLinks.map((item, index) => (
+              <Link
+                key={index}
+                spy={true}
+                smooth={true}
+                duration={500}
+                offset={-120}
+                to={item.section}
+                className="hover:text-green transition-all duration-300 cursor-pointer text-sm"
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex md:flex-row sm:flex-col items-center justify-between mt-12 pt-8 border-t border-green/20 gap-4">
+          <p className="text-white/40 font-mono text-xs">
+            <span className="text-green">console.log(</span>
+            &quot;Built with care and lots of ☕&quot;
+            <span className="text-green">);</span>
+          </p>
+
+          <p className="text-white/40 text-xs font-mono">
+            © {currentYear} DRAP AI | All Rights Reserved
+          </p>
+        </div>
+
+        <div className="absolute top-4 left-4 text-green/20 text-xs font-mono">
+          &lt;/footer&gt;
+        </div>
+        <div className="absolute top-4 right-4 text-cyan/20 text-xs font-mono">
+          &lt;developer/&gt;
+        </div>
+      </div>
+
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
+        <div className="absolute bottom-10 left-10 text-6xl text-green animate-pulse">
+          {"{}"}
+        </div>
+        <div className="absolute bottom-20 right-20 text-4xl text-cyan animate-pulse">
+          {"</>"}
         </div>
       </div>
     </footer>

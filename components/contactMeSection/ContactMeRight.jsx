@@ -1,0 +1,107 @@
+import { motion } from "framer-motion";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import ContactInfo from "./ContactInfo";
+
+const ContactMeRight = () => {
+  const socialLinks = [
+    {
+      icon: FaGithub,
+      href: "https://github.com/RelaxItsAryan",
+      label: "GitHub",
+      color: "hover:text-gray-300",
+    },
+    {
+      icon: FaLinkedin,
+      href: "https://www.linkedin.com/in/aryan-amit-arya/",
+      label: "LinkedIn",
+      color: "hover:text-blue-400",
+    },
+    {
+      icon: FaEnvelope,
+      href: "mailto:aryanarya5507@gmail.com",
+      label: "Email",
+      color: "hover:text-green",
+    },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8 }}
+      className="flex flex-col items-center justify-center gap-8 relative z-10"
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className="relative"
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-green/20 to-cyan/20 rounded-full blur-xl"></div>
+        <motion.img
+          animate={{ y: [-10, 10, -10] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          src="/images/email-image.png"
+          alt="email illustration"
+          className="max-w-[280px] relative z-10 drop-shadow-lg"
+        />
+
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute -top-4 -right-4 w-8 h-8 border-2 border-green/30 rounded-full"
+        ></motion.div>
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute -bottom-2 -left-2 w-6 h-6 border-2 border-cyan/30 rounded-full"
+        ></motion.div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="w-full"
+      >
+        <ContactInfo />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        className="bg-gradient-to-r from-green/10 to-cyan/10 backdrop-blur-sm border border-green/20 rounded-xl p-4 text-center"
+      >
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <motion.div
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-2 h-2 bg-green rounded-full"
+          ></motion.div>
+          <span className="text-green font-semibold text-sm">Online Now</span>
+        </div>
+        <p className="text-gray-400 text-xs">Usually responds within 24 hours</p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1 }}
+        className="w-full flex justify-center"
+      >
+        <img
+          src="/images/social.png"
+          alt="social links"
+          className="max-w-[380px] w-full h-auto"
+        />
+      </motion.div>
+
+      <div className="absolute -top-2 -right-2 text-cyan/20 font-mono text-xs pointer-events-none">
+        &lt;connect/&gt;
+      </div>
+    </motion.div>
+  );
+};
+
+export default ContactMeRight;

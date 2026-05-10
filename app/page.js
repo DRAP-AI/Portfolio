@@ -2,6 +2,7 @@ import Link from "next/link";
 import MobileMenu from "@/components/MobileMenu";
 import Work from "@/components/Work.jsx";
 import SkillsMain from "@/components/skills/SkillsMain";
+import ContactMeMain from "@/components/contactMeSection/ContactMeMain";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -48,6 +49,7 @@ export default function Home() {
       {/* Work Section */}
       <Work id='work'/>
       <SkillsMain />
+      <ContactMeMain />
       <Footer />
     </div>
   );
