@@ -1,6 +1,7 @@
 "use client";
-import AllSkills from "./AllSkills";
 import SkillsText from "./SkillsText";
+import AllSkills from "./AllSkills";
+import SubSkills from "./SubSkills";
 import { motion } from "framer-motion";
 import { fadeIn } from "../../lib/framerMotion/variants";
 import { FaCode, FaCogs, FaDatabase, FaServer } from "react-icons/fa";
@@ -86,7 +87,7 @@ const SkillsMain = () => {
         {/* Bottom decoration */}
         <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green to-transparent opacity-30"></div>
       </div>
-
+      <SubSkills />
       {/* Corner decorations */}
       <div className="absolute top-5 left-5 w-8 h-8 border-l-2 border-t-2 border-green/20"></div>
       <div className="absolute top-5 right-5 w-8 h-8 border-r-2 border-t-2 border-cyan/20"></div>

@@ -135,23 +135,28 @@ const skills = [
 
 const AllSkills = () => {
   return (
-    <motion.div
-      variants={fadeIn("up", 0.2)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{ once: false, amount: 0.3 }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-6 mt-5"
-    >
-      {skills.map((item, index) => (
-        <SingleSkill
-          key={index}
-          imgSvg={<item.icon />}
-          text={item.skill}
-          proficiency={item.proficiency}
-          progress={item.progress}
-        />
-      ))}
-    </motion.div>
+    <div className="w-full">
+      <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4">
+        Our Skills
+      </h3>
+      <motion.div
+        variants={fadeIn("up", 0.2)}
+        initial="hidden"
+        whileInView={"show"}
+        viewport={{ once: false, amount: 0.3 }}
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-6 mt-5"
+      >
+        {skills.map((item, index) => (
+          <SingleSkill
+            key={index}
+            imgSvg={<item.icon />}
+            text={item.skill}
+            proficiency={item.proficiency}
+            progress={item.progress}
+          />
+        ))}
+      </motion.div>
+    </div>
   );
 };
 

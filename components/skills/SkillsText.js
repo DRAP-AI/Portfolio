@@ -24,7 +24,7 @@ const SkillsText = () => {
           >
             <FaCogs />
           </motion.div>
-          <h2 className="text-6xl font-bold bg-gradient-to-r from-green via-cyan to-green bg-clip-text text-transparent">
+          <h2 className="text-5xl sm:text-6xl font-bold text-white">
             My Skills
           </h2>
           <motion.div
