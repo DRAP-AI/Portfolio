@@ -8,10 +8,13 @@ import { FaCode, FaCogs, FaDatabase, FaServer } from "react-icons/fa";
 
 const SkillsMain = () => {
   return (
-    <div id="skills" className="relative overflow-hidden bg-gradient-to-b from-gray-900/50 to-transparent">
+    <div id="skills" className="relative overflow-hidden py-16 sm:py-20 md:py-28 bg-black">
       {/* Background tech grid */}
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]"></div>
-      
+
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900/30 to-black/80 pointer-events-none"></div>
+
       {/* Floating tech icons */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -63,7 +66,7 @@ const SkillsMain = () => {
       <div className="absolute bottom-20 left-[5%] w-80 h-80 bg-gradient-to-tr from-cyan/5 via-green/3 to-transparent rounded-full blur-3xl"></div>
 
       {/* Main content */}
-      <div className="max-w-[1200px] px-4 mx-auto min-h-[400px] relative">
+      <div className="max-w-[1200px] px-4 sm:px-6 md:px-8 mx-auto min-h-[400px] relative">
         <motion.div
           variants={fadeIn("down", 0.2)}
           initial="hidden"
@@ -72,7 +75,7 @@ const SkillsMain = () => {
         >
           <SkillsText />
         </motion.div>
-        
+
         {/* Skills layout for all screen sizes */}
         <div className="w-full">
           <motion.div

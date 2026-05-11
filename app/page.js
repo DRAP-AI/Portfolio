@@ -4,6 +4,7 @@ import Work from "@/components/Work.jsx";
 import SkillsMain from "@/components/skills/SkillsMain";
 import ContactMeMain from "@/components/contactMeSection/ContactMeMain";
 import Footer from "@/components/Footer";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   return (
@@ -48,6 +49,7 @@ export default function Home() {
       
       {/* Work Section */}
       <Work id='work'/>
+      <Testimonials />
       <SkillsMain />
       <ContactMeMain />
       <Footer />

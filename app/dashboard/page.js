@@ -7,14 +7,19 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, push, get } from "firebase/database";
 import ProjectForm from "@/components/ProjectForm";
 import ProjectList from "@/components/ProjectList";
+import TestimonialForm from "@/components/TestimonialForm";
+import TestimonialList from "@/components/TestimonialList";
 
 export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
+  const [showProjectForm, setShowProjectForm] = useState(false);
+  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+  const [activeTab, setActiveTab] = useState("testimonials");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -26,6 +31,7 @@ export default function Dashboard() {
         try {
           await checkAdminStatus(currentUser.email);
           await fetchProjects();
+          await fetchTestimonials();
         } catch (err) {
           console.error("Error in dashboard:", err);
         }
@@ -68,6 +74,26 @@ export default function Dashboard() {
     }
   };
 
+  const fetchTestimonials = async () => {
+    try {
+      const testimonialsRef = ref(db, "testimonials");
+      const snapshot = await get(testimonialsRef);
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const testimonialsList = Object.entries(data).map(([key, value]) => ({
+          id: key,
+          ...value,
+        }));
+        setTestimonials(testimonialsList);
+      } else {
+        setTestimonials([]);
+      }
+    } catch (err) {
+      console.error("Error fetching testimonials:", err);
+      setTestimonials([]);
+    }
+  };
+
   const handleProjectSubmit = async (projectData) => {
     try {
       const projectsRef = ref(db, "projects");
@@ -77,9 +103,24 @@ export default function Dashboard() {
         createdAt: new Date().toISOString(),
       });
       await fetchProjects();
-      setShowForm(false);
+      setShowProjectForm(false);
     } catch (err) {
       console.error("Error creating project:", err);
+    }
+  };
+
+  const handleTestimonialSubmit = async (testimonialData) => {
+    try {
+      const testimonialsRef = ref(db, "testimonials");
+      await push(testimonialsRef, {
+        ...testimonialData,
+        createdBy: user.uid,
+        createdAt: new Date().toISOString(),
+      });
+      await fetchTestimonials();
+      setShowTestimonialForm(false);
+    } catch (err) {
+      console.error("Error creating testimonial:", err);
     }
   };
 
@@ -124,24 +165,77 @@ export default function Dashboard() {
         {!isAdmin ? (
           <div className="bg-yellow-500/10 border border-yellow-500/50 text-yellow-400 p-6 rounded-lg text-center">
             <p className="text-lg font-semibold">Access Restricted</p>
-            <p className="mt-2">You need admin access to upload projects.</p>
+            <p className="mt-2">You need admin access to manage content.</p>
             <p className="text-sm mt-2 text-yellow-300">Contact an administrator to request access.</p>
           </div>
         ) : (
           <>
-            <div className="flex justify-between items-center mb-10">
-              <h2 className="text-3xl font-black">My Projects</h2>
+            {/* Tabs */}
+            <div className="flex gap-4 mb-8 border-b border-zinc-700">
               <button
-                onClick={() => setShowForm(!showForm)}
-                className="px-6 py-2 bg-white text-black font-bold rounded hover:bg-zinc-200 transition"
+                onClick={() => setActiveTab("testimonials")}
+                className={`px-4 py-2 font-semibold transition border-b-2 ${
+                  activeTab === "testimonials"
+                    ? "border-green text-green"
+                    : "border-transparent text-zinc-400 hover:text-white"
+                }`}
               >
-                {showForm ? "Cancel" : "Add Project"}
+                Testimonials
+              </button>
+              <button
+                onClick={() => setActiveTab("projects")}
+                className={`px-4 py-2 font-semibold transition border-b-2 ${
+                  activeTab === "projects"
+                    ? "border-green text-green"
+                    : "border-transparent text-zinc-400 hover:text-white"
+                }`}
+              >
+                Projects
               </button>
             </div>
 
-            {showForm && <ProjectForm onSubmit={handleProjectSubmit} />}
+            {/* Testimonials Tab */}
+            {activeTab === "testimonials" && (
+              <>
+                <div className="flex justify-between items-center mb-8">
+                  <h2 className="text-3xl font-black">Testimonials</h2>
+                  <button
+                    onClick={() => setShowTestimonialForm(!showTestimonialForm)}
+                    className="px-6 py-2 bg-white text-black font-bold rounded hover:bg-zinc-200 transition"
+                  >
+                    {showTestimonialForm ? "Cancel" : "Add Testimonial"}
+                  </button>
+                </div>
 
-            <ProjectList projects={projects} onProjectUpdate={fetchProjects} />
+                {showTestimonialForm && (
+                  <TestimonialForm onSubmit={handleTestimonialSubmit} />
+                )}
+
+                <TestimonialList
+                  testimonials={testimonials}
+                  onTestimonialUpdate={fetchTestimonials}
+                />
+              </>
+            )}
+
+            {/* Projects Tab */}
+            {activeTab === "projects" && (
+              <>
+                <div className="flex justify-between items-center mb-8">
+                  <h2 className="text-3xl font-black">Projects</h2>
+                  <button
+                    onClick={() => setShowProjectForm(!showProjectForm)}
+                    className="px-6 py-2 bg-white text-black font-bold rounded hover:bg-zinc-200 transition"
+                  >
+                    {showProjectForm ? "Cancel" : "Add Project"}
+                  </button>
+                </div>
+
+                {showProjectForm && <ProjectForm onSubmit={handleProjectSubmit} />}
+
+                <ProjectList projects={projects} onProjectUpdate={fetchProjects} />
+              </>
+            )}
           </>
         )}
       </div>
