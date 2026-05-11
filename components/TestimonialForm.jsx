@@ -1,10 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { db } from "@/lib/firebase";
+import { ref, push } from "firebase/database";
 
 export default function TestimonialForm({ onSubmit }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     role: "",
@@ -24,6 +27,7 @@ export default function TestimonialForm({ onSubmit }) {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
 
     try {
       if (!formData.name || !formData.role || !formData.review) {
@@ -32,10 +36,20 @@ export default function TestimonialForm({ onSubmit }) {
         return;
       }
 
-      await onSubmit(formData);
+      const testimonialData = {
+        ...formData,
+        avatar: formData.avatar || `https://i.pravatar.cc/100?img=${Math.floor(Math.random() * 100)}`,
+        createdAt: new Date().toISOString(),
+      };
+
+      await onSubmit(testimonialData);
+
+      setSuccess("✓ Testimonial added successfully!");
       setFormData({ name: "", role: "", review: "", avatar: "" });
+      setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
-      setError(err.message);
+      console.error("Error:", err);
+      setError(err.message || "Failed to add testimonial");
     } finally {
       setLoading(false);
     }
@@ -48,6 +62,12 @@ export default function TestimonialForm({ onSubmit }) {
       {error && (
         <div className="bg-red-500/10 border border-red-500/50 text-red-400 p-4 rounded">
           {error}
+        </div>
+      )}
+
+      {success && (
+        <div className="bg-green/10 border border-green/50 text-green p-4 rounded">
+          {success}
         </div>
       )}
 

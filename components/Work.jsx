@@ -36,13 +36,13 @@ const Work = ({ id }) => {
         style={{
           backgroundImage: `linear-gradient(#0000008b, #000000e6), url('/hero-bg.webp')`,
         }}>
-        <div className="relative rounded-t-[100px] border border-zinc-700/50 bg-cover bg-center bg-no-repeat min-h-screen z-10"
+        <div className="relative rounded-t-[40px] md:rounded-t-[100px]  bg-cover bg-center bg-no-repeat min-h-screen z-10"
         style={{
           background: 'black',
         }}>
 
         <div className="p-4 sm:p-8 md:p-20 lg:p-28">
-          <h2 className="text-2xl sm:text-3xl md:text-[3.4rem] text-center font-black text-white mb-3">Selected Works</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-[3.4rem] text-center font-black text-white mb-3 mt-4">Selected Works</h2>
           <h3 className="text-sm sm:text-base md:text-lg text-center text-zinc-300 mb-6 sm:mb-8">Here are some of our recent Client Works</h3>
 
           {loading ? (
@@ -59,7 +59,7 @@ const Work = ({ id }) => {
                 <p className="text-sm sm:text-base md:text-[1.5rem] text-zinc-300 mb-3 sm:mb-4 leading-relaxed">{project.description}</p>
                 <ul className="flex flex-col gap-1 sm:gap-1.5 text-base sm:text-xl md:text-2xl mb-4">
                   {project.technologies?.map((tech) => (
-                    <li key={tech} className="text-zinc-300">◉ {tech}</li>
+                    <li key={tech} className="text-zinc-300">★ {tech}</li>
                   ))}
                 </ul>
                 {(project.liveUrl || project.sourceUrl) && (
