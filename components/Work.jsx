@@ -41,30 +41,35 @@ const Work = ({ id }) => {
           background: 'black',
         }}>
 
-        <div className="p-10 md:p-20">
-          <h2 className="text-[3.4rem] text-center font-black text-white mb-3">Selected Works</h2>
-          <h3 className="text-lg text-center text-zinc-300 mb-8">Here are some of our recent Client Works</h3>
+        <div className="p-4 sm:p-8 md:p-20 lg:p-28">
+          <h2 className="text-2xl sm:text-3xl md:text-[3.4rem] text-center font-black text-white mb-3">Selected Works</h2>
+          <h3 className="text-sm sm:text-base md:text-lg text-center text-zinc-300 mb-6 sm:mb-8">Here are some of our recent Client Works</h3>
 
           {loading ? (
             <p className="text-center text-zinc-300">Loading...</p>
           ) : project ? (
-            <div className="flex justify-between gap-10">
-              <div>
-                <h2 className="text-[2.5rem] text-white font-bold">{project.title}</h2>
-                <p className="text-[1.5rem] text-zinc-300">{project.description}</p>
-                <ul className="flex flex-col gap-1.5 text-2xl">
+            <div className="flex flex-col md:flex-row justify-between gap-6 md:gap-10 items-start md:items-center">
+              {project.image && (
+                <div className="w-full md:hidden mb-4 order-first">
+                  <img src={project.image} width={500} height={400} alt={project.title} className="rounded-3xl object-cover w-full h-auto"/>
+                </div>
+              )}
+              <div className="w-full md:w-1/2">
+                <h2 className="text-xl sm:text-2xl md:text-[2.5rem] text-white font-bold mb-2 sm:mb-3">{project.title}</h2>
+                <p className="text-sm sm:text-base md:text-[1.5rem] text-zinc-300 mb-3 sm:mb-4 leading-relaxed">{project.description}</p>
+                <ul className="flex flex-col gap-1 sm:gap-1.5 text-base sm:text-xl md:text-2xl mb-4">
                   {project.technologies?.map((tech) => (
                     <li key={tech} className="text-zinc-300">◉ {tech}</li>
                   ))}
                 </ul>
                 {(project.liveUrl || project.sourceUrl) && (
-                  <div className="flex items-center gap-4 text-white mt-2.5">
+                  <div className="flex items-center gap-3 sm:gap-4 text-white mt-4 sm:mt-2.5 flex-wrap">
                     {project.liveUrl && (
                       <Link
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="underline text-2xl font-bold"
+                        className="underline text-sm sm:text-lg md:text-2xl font-bold hover:text-green transition-colors"
                       >
                         Explore this project
                       </Link>
@@ -81,7 +86,7 @@ const Work = ({ id }) => {
                           alt="GitHub"
                           width={40}
                           height={40}
-                          className="hover:opacity-80 transition cursor-pointer"
+                          className="w-8 h-8 sm:w-10 sm:h-10 md:w-10 md:h-10 hover:opacity-80 transition cursor-pointer"
                         />
                       </Link>
                     )}
@@ -89,7 +94,9 @@ const Work = ({ id }) => {
                 )}
               </div>
               {project.image && (
-                <img src={project.image} width={500} height={400} alt={project.title} className="rounded-3xl object-cover"/>
+                <div className="hidden md:block w-full md:w-1/2">
+                  <img src={project.image} width={500} height={400} alt={project.title} className="rounded-3xl object-cover w-full h-auto"/>
+                </div>
               )}
             </div>
           ) : (

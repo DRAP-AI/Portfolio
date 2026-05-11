@@ -8,80 +8,83 @@ import TypewriterEffect from "../ui/TypewriterEffect";
 
 const ContactMeMain = () => {
   return (
-    <div id="contact" className="relative overflow-hidden py-20" style={{ pointerEvents: "auto" }}>
+    <div id="contact" className="relative overflow-hidden py-16 sm:py-20 md:py-28 bg-black" style={{ pointerEvents: "auto" }}>
       <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px] pointer-events-none"></div>
+
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900/30 to-black/80 pointer-events-none"></div>
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{ y: [-20, 20, -20], rotate: [0, 360, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-10 left-[10%] text-green/8 text-3xl"
+          className="absolute top-10 left-[10%] text-green/8 text-2xl sm:text-3xl"
         >
           <FaEnvelope />
         </motion.div>
         <motion.div
           animate={{ y: [15, -15, 15], x: [-5, 5, -5] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 right-[8%] text-cyan/8 text-4xl"
+          className="absolute top-1/3 right-[8%] text-cyan/8 text-3xl sm:text-4xl"
         >
           <FaRocket />
         </motion.div>
         <motion.div
           animate={{ y: [-10, 10, -10], rotate: [0, -180, 0] }}
           transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-20 left-[5%] text-green/8 text-2xl"
+          className="absolute bottom-20 left-[5%] text-green/8 text-xl sm:text-2xl"
         >
           <FaHandshake />
         </motion.div>
       </div>
 
-      <div className="absolute top-20 right-[10%] w-64 h-64 bg-gradient-to-br from-green/8 via-cyan/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-20 left-[5%] w-80 h-80 bg-gradient-to-tr from-cyan/8 via-green/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-20 right-[10%] w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-br from-green/8 via-cyan/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-20 left-[5%] w-64 sm:w-80 h-64 sm:h-80 bg-gradient-to-tr from-cyan/8 via-green/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
       <div
-        className="max-w-[1200px] mx-auto items-center justify-center mt-[50px] px-4 relative z-10"
+        className="max-w-[1200px] mx-auto items-center justify-center mt-[50px] px-4 sm:px-6 md:px-8 relative z-10"
         style={{ pointerEvents: "auto" }}
       >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 relative"
+          className="text-center mb-12 sm:mb-16 relative"
         >
-          <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-3 sm:mb-4 flex-wrap">
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="text-green text-2xl"
+              className="text-green text-xl sm:text-2xl"
             >
               <FaEnvelope />
             </motion.div>
-            <h2 className="text-6xl font-bold bg-gradient-to-r from-green via-cyan to-green bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-green via-cyan to-green bg-clip-text text-transparent">
               Contact Me
             </h2>
             <motion.div
               animate={{ rotate: [0, 20, -20, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
-              className="text-cyan text-2xl"
+              className="text-cyan text-xl sm:text-2xl"
             >
               <FaHandshake />
             </motion.div>
           </div>
 
-          <div className="w-40 h-1 bg-gradient-to-r from-transparent via-green to-transparent mx-auto mb-6 rounded-full"></div>
+          <div className="w-32 sm:w-40 h-1 bg-gradient-to-r from-transparent via-green to-transparent mx-auto mb-4 sm:mb-6 rounded-full"></div>
 
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="text-green font-mono text-sm">{"// Let's Connect"}</span>
+          <div className="flex items-center justify-center gap-2 mb-2 sm:mb-4">
+            <span className="text-green font-mono text-xs sm:text-sm">{"// Let's Connect"}</span>
           </div>
 
-          <h3 className="text-2xl font-semibold text-white/80 mb-2">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white/80 mb-2">
             Let&apos;s Connect
           </h3>
 
           <TypewriterEffect
             texts={["Ready to bring your ideas to life? Let's discuss your next project!"]}
             delayBetween={2000}
-            className="text-lg text-gray-300 max-w-2xl mx-auto"
+            className="text-sm sm:text-base md:text-lg text-gray-300 max-w-2xl mx-auto"
           />
         </motion.div>
 
@@ -93,7 +96,7 @@ const ContactMeMain = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-br from-green/5 via-transparent to-cyan/5 rounded-3xl blur-xl pointer-events-none"></div>
 
-          <div className="relative bg-gray-900/40 backdrop-blur-sm border border-gray-700/50 p-8 rounded-3xl hover:border-green/30 transition-all duration-500 shadow-2xl">
+          <div className="relative bg-gray-900/40 backdrop-blur-sm border border-gray-700/50 p-6 sm:p-8 rounded-3xl hover:border-green/30 transition-all duration-500 shadow-2xl">
             <div className="absolute top-4 left-4 text-green/20 font-mono text-xs pointer-events-none">
               &lt;contact&gt;
             </div>
@@ -104,7 +107,7 @@ const ContactMeMain = () => {
               &lt;/contact&gt;
             </div>
 
-            <div className="flex justify-between gap-12 lg:flex-row sm:flex-col">
+            <div className="flex justify-between gap-8 sm:gap-12 lg:flex-row sm:flex-col flex-col">
               <div className="lg:w-1/2 w-full">
                 <ContactMeLeft />
               </div>
